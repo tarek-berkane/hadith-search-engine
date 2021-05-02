@@ -1,11 +1,9 @@
-
 # todo validate data is very primitive
 def is_data_valid(data: dict) -> bool:
     if n := data.get('hits'):
         if n := n.get('hits'):
             return True
     return False
-
 
 
 def get_result_item(item: dict):
@@ -27,6 +25,8 @@ def result_extractor(data: dict):
         'total': 0,
         'result': [],
     }
+    if not data:
+        return result
 
     if not is_data_valid(data):
         return result
@@ -34,6 +34,9 @@ def result_extractor(data: dict):
     result["total"] = data['hits']['total']['value']
 
     items = data['hits']['hits']
-    result["result"] = [get_result_item(item) for item in items]
+    # result["result"] = [get_result_item(item) for item in items]
+
+    for item in items:
+        result['result'].append(get_result_item(item))
 
     return result
