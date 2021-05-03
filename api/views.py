@@ -11,22 +11,75 @@ engine = Engine(index='hadith_12')
 engine.connect()
 
 
-@api_view(['GET', "POST"])
-def simple_search(request):
-    """ simple api to search for hadith"""
+def check_engine(fn):
+    def wrapper(*args, **kwargs):
+        if engine.get_engine_state():
+            return fn(*args, **kwargs)
+        return Response({"erro": "engine is off"})
 
+    return wrapper
+
+
+@api_view(["GET", "POST"])
+@check_engine
+def simple_search(request):
     if request.data:
         serializer = SearchSerializer(data=request.data)
         if serializer.is_valid():
-            if engine.get_engine_state():
-                result = engine.search(serializer.data['query'])
-                # text = text_analyzer.process_text_stemm(serializer.data['query'])
-                # result = searcher.search_text(text=text)
-                return Response(result)
-            return Response({"erro": "engine is off"})
+            result = engine.search(serializer.data['query'])
+            return Response(result)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response()
 
+
+# Collection
+
+@api_view(["GET", "POST"])
+def get_list_coll(request):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_hadith_coll(request, coll: str):
+    pass
+
+
+# Chapter
+
+@api_view(["GET", "POST"])
+def get_chapter_coll(request, coll: str):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_hadith_chapter(request, chapiter: str):
+    pass
+
+
+# Section
+@api_view(["GET", "POST"])
+def get_list_hadith_section(request, section):
+    pass
+
+
+# Hadith
+
+@api_view(["GET", "POST"])
+def get_hadith(request, id):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_random_hadith(request, range: int):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_random_coll(request, range: int, coll: str):
+    pass
+
+
+# Other
 
 @api_view(["GET"])
 def api_help(request):
@@ -49,4 +102,29 @@ def devlopers(request):
 
 @api_view(["GET"])
 def search(request):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_hadith_coll(request, coll):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_random_hadith(request):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_random_hadith_coll(request, coll):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_list_hadith(request, coll):
+    pass
+
+
+@api_view(["GET", "POST"])
+def get_hadith(request, id):
     pass
