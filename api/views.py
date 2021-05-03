@@ -3,9 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .serializers import SearchSerializer
-from engine.engine import searcher, text_analyzer
-from engine.engine.extractor import result_extractor
-from engine.engine.manager import Engine
+from engine.Engine import Engine
 
 engine = Engine(index='hadith_12')
 engine.connect()
@@ -15,7 +13,7 @@ def check_engine(fn):
     def wrapper(*args, **kwargs):
         if engine.get_engine_state():
             return fn(*args, **kwargs)
-        return Response({"erro": "engine is off"})
+        return Response({"erro": "components is off"})
 
     return wrapper
 
@@ -26,7 +24,8 @@ def simple_search(request):
     if request.data:
         serializer = SearchSerializer(data=request.data)
         if serializer.is_valid():
-            result = engine.search(serializer.data['query'])
+            result = engine.searcher.simple_search(serializer.data['query'])
+            # result = components.search(serializer.data['query'])
             return Response(result)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response()
@@ -65,8 +64,12 @@ def get_list_hadith_section(request, section):
 # Hadith
 
 @api_view(["GET", "POST"])
-def get_hadith(request, id):
-    pass
+@check_engine
+def get_hadith(request, id=None):
+    if id:
+        result = engine.searcher.get_hadith(id)
+        return Response(result)
+    return Response()
 
 
 @api_view(["GET", "POST"])
@@ -96,7 +99,7 @@ def api_help(request):
 
 @api_view(["GET"])
 def devlopers(request):
-    return Response({"API": "HADITH search engine API",
+    return Response({"API": "HADITH search components API",
                      "API version": "1.0", "devloper": "berkane tarek"})
 
 
@@ -125,6 +128,6 @@ def get_list_hadith(request, coll):
     pass
 
 
-@api_view(["GET", "POST"])
-def get_hadith(request, id):
-    pass
+# @api_view(["GET", "POST"])
+# def get_hadith(request, id):
+#     pass
