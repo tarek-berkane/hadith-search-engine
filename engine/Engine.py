@@ -24,21 +24,31 @@ from elasticsearch.client import Elasticsearch
 from elasticsearch.exceptions import ConnectionTimeout, ConnectionError
 from urllib3.exceptions import NewConnectionError
 
-from .searcher import simple_search
-from .text_analyzer import process_text_stemm
-from .extractor import result_extractor
-from .elasticsearch_adapter.connecter import connect
+from .components.searcher import simple_search, Searcher
+from .components.text_analyzer import process_text_stemm
+from .components.extractor import result_extractor
+from .components.elasticsearch_adapter.connecter import connect
 
 logger = logging.getLogger(__name__)
 
 
 class Engine:
     def __init__(self, index=None):
-        self.es: Elasticsearch = None
         self.index = index
+
+        self.es: Elasticsearch = None
+        # components of components
+        self._searcher = None
+        # self._indexer = None #not implemented yet
+        # self._loader = None #not implemented yet
+        # self._analyzer = None #not implemented yet
 
         self._started = False
         self._connected = False
+
+    @property
+    def searcher(self) -> Searcher:
+        return self._searcher
 
     # decorators
 
@@ -63,6 +73,7 @@ class Engine:
             if self.es:
                 if self.check_connection():
                     logger.info('elasticSearch connected!')
+                    self._searcher = Searcher(es=self.es, index=self.index)
                     self._started = True
                     self._connected = True
         except NewConnectionError:

@@ -2,7 +2,6 @@ from elasticsearch import Elasticsearch
 from elasticsearch.client import Elasticsearch as _es
 
 
-
 def boolean_query(es: _es, index: str):
     es.search()
 
@@ -23,3 +22,6 @@ def match_query(es: _es, index: str, text: str):
     }
     return es.search(index=index, body=query)
 
+
+def search_hadith_by_id(es: Elasticsearch, index: str, id: int):
+    return es.get(index=index, id=id)
