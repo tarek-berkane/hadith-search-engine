@@ -10,4 +10,3 @@ def connect() -> _es:
     except Exception as e:
         es = None
 
-

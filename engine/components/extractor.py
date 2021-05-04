@@ -6,7 +6,7 @@ def is_data_valid(data: dict) -> bool:
     return False
 
 
-def get_result_item(item: dict):
+def extract_hadith_item(item: dict):
     # todo add support for all fields
     return {
         "id": item["_id"],
@@ -37,6 +37,8 @@ def result_extractor(data: dict):
     # result["result"] = [get_result_item(item) for item in items]
 
     for item in items:
-        result['result'].append(get_result_item(item))
+        result['result'].append(extract_hadith_item(item))
 
     return result
+
+

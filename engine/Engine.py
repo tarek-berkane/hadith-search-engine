@@ -1,22 +1,3 @@
-# ENGINE:
-# es adapter:
-# - connect to ES
-# - reconnect to ES
-# - check connection
-# text analyzer
-# - get text analyzer
-# - analyze text
-# search
-# - search text
-# - advance search text
-# - extract data
-# - build reslult data
-# indexing
-# - get index
-# - creat index
-# - check index
-# loader
-# - load data
 
 import logging
 
