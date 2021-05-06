@@ -1,0 +1,122 @@
+{% load static %}
+/*@import url('https://fonts.googleapis.com/css2?family=Almarai&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mirza&display=swap');*/
+
+@font-face {
+    font-family: 'Almarai';
+    src: url('../fonts/Tajawal-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Amiri';
+    src: url('../fonts/Amiri-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #EDEDED;
+}
+
+.sub-menu-area{
+    height: 26px;
+    background-color: #939393;
+}
+
+.menu-area{
+    background-color: gainsboro;
+    height: 63px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-area form input[type="text"]{
+    width: 800px;
+    height: 40px;
+    direction: rtl;
+}
+
+.search-info-area{
+    font-family: "Almarai";
+    direction: rtl;
+    padding: 5px 0;
+    width: 1000px;
+    margin: auto;
+    /* background-color: gray; */
+}
+
+.search-info-area .small{
+    display: inline;
+    font-size: 12px;
+}
+
+.result-items-area .hadith-item{
+    width: 1000px;
+    /* height: 200px; */
+    background-color: white;
+    border: #99cccc 2.8px solid;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 5px 10px;
+
+    /* display: flex; */
+    /* flex-wrap: nowrap; */
+
+}
+
+
+.result-items-area .hadith-item .hadith{
+    font-family: "Amiri";
+    color:#283943;
+    font-size: 20px;
+    direction: rtl;
+}
+
+.result-items-area .hadith-item .hadith p{
+    /* height: min-content; */
+    margin: 5px;
+
+}
+
+
+.result-items-area .hadith-item .hadith-info{
+    font-family: "Almarai";
+    direction: rtl;
+}
+
+
+.hadith-info{
+    display: flex;
+}
+
+.hadith-info p{
+    display: flex;
+    margin: 5px 0 ;
+}
+
+.hadith-info .info{
+display: flex;
+margin-left:  55px;
+}
+
+.hadith-info .info .data-desc{
+   margin-left:0px ;
+   color: gray;
+}
+
+.hadith-info .info .data-value{
+    padding: 0 10px ;
+    opacity: 0.5;
+}
+
+
+.hadith-info .info .data-value:hover{
+    opacity: 1;
+    transition: 0.4s;
+}

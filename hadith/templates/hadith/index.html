@@ -1,0 +1,91 @@
+<!--{% load static %}-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+<!-- Sub menu area -->
+<div class="sub-menu-area"></div>
+
+<!-- Menu area -->
+<div class="menu-area">
+    <form method="get" action="{% url 'home' %}">
+        <input type="text" placeholder="ابحث عن حديث" name="hadith-search" id="hadith-search">
+    </form>
+</div>
+
+<!-- Result arae -->
+<div class="result-area">
+    <!-- Meta search info  -->
+    <div class="search-info-area">
+        عملية البحث استغرقت
+        <div class="small">{{time}}ms</div>
+    </div>
+
+    <!-- Result items -->
+    <div class="result-items-area">
+        {% for item in items %}
+        <div class="hadith-item">
+            <div class="hadith">
+                <p>{{item.arabic_hadith}}</p>
+            </div>
+            <div class="hadith-info">
+                <div class="info">
+                    <p class="data-desc">كتاب :</p>
+                    <p class="data-value">{{item.chapter_arabic}}</p>
+                    <p>{{item.chapter_number}}</p>
+                </div>
+                <div class="info">
+                    <p class="data-desc">باب :</p>
+                    <p class="data-value">{{item.section_arabic}}</p>
+                    <p>{{item.section_number}}</p>
+                </div>
+                <div class="info">
+                    <p class="data-desc">النوع :</p>
+                    <p class="data-value">صحيح</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+<!--        <div class="hadith-item">-->
+<!--            <div class="hadith">-->
+<!--                <p> ‏حَدَّثَنِي ‏ ‏يَحْيَى ‏ ‏عَنْ ‏ ‏مَالِك ‏ ‏عَنْ ‏ ‏ابْنِ شِهَابٍ ‏ ‏عَنْ ‏ ‏رَجُلٍ ‏ ‏مِنْ آلِ-->
+<!--                    ‏ ‏خَالِدِ بْنِ أَسِيدٍ ‏ ‏أَنَّهُ سَأَلَ ‏ ‏عَبْدَ اللَّهِ بْنَ عُمَرَ ‏ ‏فَقَالَ يَا ‏ ‏أَبَا-->
+<!--                    عَبْدِ الرَّحْمَنِ ‏ ‏إِنَّا نَجِدُ صَلَاةَ الْخَوْفِ وَصَلَاةَ الْحَضَرِ فِي الْقُرْآنِ وَلَا-->
+<!--                    نَجِدُ صَلَاةَ السَّفَرِ فَقَالَ ‏ ‏ابْنُ عُمَرَ ‏ ‏يَا ابْنَ أَخِي ‏ ‏إِنَّ اللَّهَ عَزَّ-->
+<!--                    وَجَلَّ بَعَثَ إِلَيْنَا ‏ ‏مُحَمَّدًا ‏ ‏صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ‏ ‏وَلَا نَعْلَمُ-->
+<!--                    شَيْئًا فَإِنَّمَا نَفْعَلُ كَمَا رَأَيْنَاهُ يَفْعَلُ ‏</p>-->
+<!--            </div>-->
+<!--            <div class="hadith-info">-->
+<!--                <div class="info">-->
+<!--                    <p class="data-desc">كتاب :</p>-->
+<!--                    <p class="data-value">كتاب بدأ الوحي</p>-->
+<!--                    <p>5</p>-->
+<!--                </div>-->
+<!--                <div class="info">-->
+<!--                    <p class="data-desc">باب :</p>-->
+<!--                    <p class="data-value">كتاب بدأ الوحي</p>-->
+<!--                    <p>15</p>-->
+<!--                </div>-->
+<!--                <div class="info">-->
+<!--                    <p class="data-desc">النوع :</p>-->
+<!--                    <p class="data-value">صحيح</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+    </div>
+</div>
+
+
+</body>
+
+</html>
