@@ -1,7 +1,11 @@
 def get_item(data: dict):
     return {
-        "maten": data["_source"]['maten-raw'],
-        "saned": data["_source"]['saned-raw']
+        "arabic_hadith": data["_source"]['arabic_hadith'],
+        "chapter_number": data["_source"]['chapter_number'],
+        "section_arabic": data["_source"]['section_arabic'],
+        "hadith_number": data["_source"]['hadith_number'],
+        "chapter_arabic": data["_source"]['chapter_arabic'],
+        "section_number": data["_source"]['section_number'],
     }
 
 

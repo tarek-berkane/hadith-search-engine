@@ -13,10 +13,100 @@ def boosting_query():
 def match_query(es: _es, index: str, text: str):
     query = {
         "query": {
-            "match": {
-                "maten": {
-                    "query": text
-                }
+            "bool": {
+                "must": [
+                    {
+                        "match": {
+                            "matn_p": {
+                                "query": text,
+                                # "operator": "and"
+                            }
+                        }
+                    },
+                    # {
+                    #     "intervals": {
+                    #         "matn_p": {
+                    #             "all_of": {
+                    #                 "ordered": True,
+                    #                 "intervals": [
+                    #                     {
+                    #                         "match": {
+                    #                             "query": text,
+                    #                             "max_gaps": 0,
+                    #                             "ordered": True
+                    #                         }
+                    #                     },
+                    #                     # {
+                    #                     #     "any_of": {
+                    #                     #         "intervals": [
+                    #                     #             {"match": {"query": text}},
+                    #                     #             {"match": {"query": text}}
+                    #                     #         ]
+                    #                     #     }
+                    #                     # }
+                    #                 ]
+                    #             }
+                    #         }
+                    #     }
+                    # }
+                ],
+                # "filter": [
+                #     {
+                #         "match": {
+                #             "matn_p": {
+                #                 "query": text,
+                #                 # "operator": "and"
+                #             }
+                #         }
+                #     },
+                # ],
+                # "should": [
+                #     # {
+                #     #     "match": {
+                #     #         "matn_p": {
+                #     #             "query": text,
+                #     #             "operator": "and"
+                #     #         }
+                #     #     }
+                #     # },
+                #
+                #     {
+                #         "intervals": {
+                #             "matn_p": {
+                #                 "all_of": {
+                #                     "ordered": True,
+                #                     "intervals": [
+                #                         {
+                #                             "match": {
+                #                                 "query": text,
+                #                                 "max_gaps": 0,
+                #                                 "ordered": True
+                #                             }
+                #                         },
+                #                         # {
+                #                         #     "any_of": {
+                #                         #         "intervals": [
+                #                         #             {"match": {"query": text}},
+                #                         #             {"match": {"query": text}}
+                #                         #         ]
+                #                         #     }
+                #                         # }
+                #                     ]
+                #                 }
+                #             }
+                #         }
+                #     }
+                # ]
+            }
+        }
+    }
+
+    query = {
+        "query": {
+            "simple_query_string": {
+                "fields": ["matn_p","isnad_p"],
+                "query": text  ,
+                "flags": "OR|AND|PREFIX"
             }
         }
     }
