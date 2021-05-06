@@ -24,11 +24,12 @@
 <!-- Result arae -->
 <div class="result-area">
     <!-- Meta search info  -->
+    {% if time %}
     <div class="search-info-area">
         عملية البحث استغرقت
         <div class="small">{{time}}ms</div>
     </div>
-
+    {% endif %}
     <!-- Result items -->
     <div class="result-items-area">
         {% for item in items %}
@@ -85,7 +86,8 @@
     </div>
 </div>
 
-
+<script src="{% static 'js/jquery-3.6.0.js'%}"></script>
+<script src="{% static 'js/data_loading.js'%}"></script>
 </body>
 
 </html>
