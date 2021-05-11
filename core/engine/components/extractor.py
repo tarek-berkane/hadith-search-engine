@@ -10,12 +10,15 @@ def extract_hadith_item(item: dict):
     # todo add support for all fields
     return {
         "id": item["_id"],
-        "maten": item["_source"]["maten-raw"],
-        "saned": item["_source"]["saned-raw"],
-        # "chapiter": item[],
-        # "chapiter_number": item[],
-        # "section": item[],
-        # "section_number": item[],
+        "chapter_number": item["_source"]["chapter_number"],
+        "chapter_arabic": item["_source"]["chapter_arabic"],
+        "section_number": item["_source"]["section_number"],
+        "section_arabic": item["_source"]["section_arabic"],
+
+        "arabic_hadith": item["_source"]["arabic_hadith"],
+        "arabic_grade": item["_source"]["arabic_grade"],
+        # "saned": item["_source"][""],
+
 
     }
 

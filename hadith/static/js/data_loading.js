@@ -30,8 +30,8 @@
         function append_new_data(hadith_data){
          var hadith_list = []
 
-         for (let index = 0; index < hadith_data['hits']['hits'].length; index++) {
-            hadith_item = hadith_data['hits']['hits'][index]['_source'];
+         for (let index = 0; index < hadith_data['result'].length; index++) {
+            hadith_item = hadith_data['result'][index];
 
             hadith_list.push(
                 `
@@ -72,7 +72,7 @@
 //            data["query"]=text_query;
              $.ajax({
                  type: "POST",
-                 url: "http://127.0.0.1:8000/api/search/",
+                 url: "http://127.0.0.1:8000/api/hadith/search",
                  data: JSON.stringify(data),
                  contentType: "application/json; charset=utf-8",
                  dataType: "json",

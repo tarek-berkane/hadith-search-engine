@@ -50,53 +50,53 @@ def match_query(es: _es, index: str, text: str):
                     #     }
                     # }
                 ],
-                # "filter": [
-                #     {
-                #         "match": {
-                #             "matn_p": {
-                #                 "query": text,
-                #                 # "operator": "and"
-                #             }
-                #         }
-                #     },
-                # ],
-                # "should": [
-                #     # {
-                #     #     "match": {
-                #     #         "matn_p": {
-                #     #             "query": text,
-                #     #             "operator": "and"
-                #     #         }
-                #     #     }
-                #     # },
-                #
-                #     {
-                #         "intervals": {
-                #             "matn_p": {
-                #                 "all_of": {
-                #                     "ordered": True,
-                #                     "intervals": [
-                #                         {
-                #                             "match": {
-                #                                 "query": text,
-                #                                 "max_gaps": 0,
-                #                                 "ordered": True
-                #                             }
-                #                         },
-                #                         # {
-                #                         #     "any_of": {
-                #                         #         "intervals": [
-                #                         #             {"match": {"query": text}},
-                #                         #             {"match": {"query": text}}
-                #                         #         ]
-                #                         #     }
-                #                         # }
-                #                     ]
-                #                 }
-                #             }
-                #         }
-                #     }
-                # ]
+                "filter": [
+                    {
+                        "match": {
+                            "matn_p": {
+                                "query": text,
+                                # "operator": "and"
+                            }
+                        }
+                    },
+                ],
+                "should": [
+                    # {
+                    #     "match": {
+                    #         "matn_p": {
+                    #             "query": text,
+                    #             "operator": "and"
+                    #         }
+                    #     }
+                    # },
+
+                    # {
+                    #     "intervals": {
+                    #         "matn_p": {
+                    #             "all_of": {
+                    #                 "ordered": True,
+                    #                 "intervals": [
+                    #                     {
+                    #                         "match": {
+                    #                             "query": text,
+                    #                             "max_gaps": 0,
+                    #                             "ordered": True
+                    #                         }
+                    #                     },
+                    #                     # {
+                    #                     #     "any_of": {
+                    #                     #         "intervals": [
+                    #                     #             {"match": {"query": text}},
+                    #                     #             {"match": {"query": text}}
+                    #                     #         ]
+                    #                     #     }
+                    #                     # }
+                    #                 ]
+                    #             }
+                    #         }
+                    #     }
+                    # }
+                ]
             }
         }
     }
@@ -181,3 +181,5 @@ def get_random_hadith(es: Elasticsearch, index: str, coll: str):
         body['query']['function_score']['query'] = {"match": {"coll": coll}}
 
     return es.search(index=index, body=body)
+
+

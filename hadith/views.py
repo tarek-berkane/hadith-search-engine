@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from engine.Engine import Engine
-from engine.components.helper import get_result
+from core.engine.Engine import Engine
+from core.engine.components.helper import get_result
+
 # Create your views here.
 
 engine = Engine(index='hadith_15')
@@ -11,6 +12,7 @@ def home(request):
     query = request.GET.get('hadith-search')
 
     items = []
+    timing = None
 
     if query:
         # print(query)
@@ -18,6 +20,4 @@ def home(request):
         items = get_result(result)
         timing = result['took']
 
-
-    return render(request, 'hadith/index.html', {"items": items,"time":timing})
-
+    return render(request, 'hadith/index.html', {"items": items, "time": timing})
