@@ -4,6 +4,7 @@ from elasticsearch.client import Elasticsearch
 from elasticsearch.exceptions import ConnectionError
 
 from core.engine.components.searcher import simple_search, Searcher
+from core.engine.components.extractor import Extractor
 from core.engine.components.text_analyzer import process_text_stemm
 from core.engine.components.extractor import result_extractor
 from core.engine.components.elasticsearch_adapter.connecter import connect
@@ -17,13 +18,16 @@ logging.basicConfig(level=logging.INFO)
 
 class Engine:
     def __init__(self, index=None):
-        logger.info("Just test thank you")
         self.index = index
 
         self.es: Elasticsearch = None
 
         # components of components
+        # need for elasticsearch instance
         self._searcher: Searcher = None
+
+        # no need for elasticsearch instance
+        self._extractor: Extractor = Extractor()
 
         # self._analyzer = None #not implemented yet
         # self._indexer = None #not implemented yet
@@ -32,13 +36,27 @@ class Engine:
         self._started = False
         self._connected = False
 
+    # Engine properties
     @property
     def searcher(self) -> Searcher:
         return self._searcher
 
+    @property
+    def extractor(self) -> Extractor:
+        return self._extractor
+
     # text Analyzer
-    def _get_text_analyzer(self):
-        raise NotImplemented
+    def text_analyzer(self):
+        raise NotImplementedError
+
+    def connector(self):
+        raise NotImplementedError
+
+    def loader(self):
+        raise NotImplementedError
+
+    def indexer(self):
+        raise NotImplementedError
 
     # decorators
 
@@ -104,7 +122,9 @@ class Engine:
         extra_option = {P_QUERY: processed_text}
 
         result = self._searcher.simple_search(serializer=serializer, **extra_option, **kwargs)
-        result = result_extractor(result)
+        # result = result_extractor(result)
+        result = self.extractor.extract(result)
+
         return result
 
     def get_random_hadith_search_engine(self, serializer, **kwargs):
