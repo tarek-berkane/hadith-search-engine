@@ -184,14 +184,14 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .serializers import BaseHadithSerializer, IdHadithSerializer,TextQuerySerializer
-from core.engine.Engine import Engine
+from core.engine.engine import Engine
 from core.data.hadith_data import get_collections
 
 # from core.data.query_bundle import QueryBundle
 import core.data.hadith_data as hadith_data
 
 engine = Engine(index='hadith_15')
-engine.connect()
+# engine.connect()
 
 
 def check_engine(fn):
@@ -204,24 +204,25 @@ def check_engine(fn):
 
 
 @api_view(["GET", "POST"])
-@check_engine
+# @check_engine
 def hadith(request):
     if request.data:
         # TODO add serializer
         serializer = IdHadithSerializer(data=request.data)
         if serializer.is_valid():
             result = engine.get_hadith_id_search_engine(serializer)
+            print(result)
             return Response(result)
 
         else:
             return Response(serializer.errors)
 
     serializer = IdHadithSerializer()
-    # todo : add help funciton to show all options
+    # todo : add help function to show all options
     return Response(serializer.help())
 
 @api_view(["GET", "POST"])
-@check_engine
+# @check_engine
 def get_random_hadith(request):
     if request.data:
         # TODO add serializer
@@ -234,13 +235,13 @@ def get_random_hadith(request):
             return Response(serializer.errors)
 
     serializer = BaseHadithSerializer()
-    # todo : add help funciton to show all options
+    # todo : add help function to show all options
     return Response(serializer.help())
 
 
 
 @api_view(["GET", "POST"])
-@check_engine
+# @check_engine
 def simple_search_api(request):
     if request.data:
         # TODO add serializer
@@ -253,7 +254,7 @@ def simple_search_api(request):
             return Response(serializer.errors)
 
     serializer = TextQuerySerializer()
-    # todo : add help funciton to show all options
+    # todo : add help function to show all options
     return Response(serializer.help())
 
 

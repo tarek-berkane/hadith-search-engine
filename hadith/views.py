@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from core.engine.Engine import Engine
+from core.engine.engine import Engine
 from core.engine.components.helper import get_result
 
 # Create your views here.
 
 engine = Engine(index='hadith_15')
-engine.connect()
+engine.start_engine()
 
 
 def home(request):
